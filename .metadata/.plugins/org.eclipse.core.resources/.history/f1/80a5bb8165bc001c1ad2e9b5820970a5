@@ -1,0 +1,9 @@
+
+spring:  config:    import:    - "optional:configserver:"limits-service:
+  minimum:
+  - 2
+  maximum:
+  - 900
+    
+    
+

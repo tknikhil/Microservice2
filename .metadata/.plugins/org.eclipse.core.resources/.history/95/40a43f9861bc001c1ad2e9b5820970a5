@@ -1,0 +1,5 @@
+package tk.microservices.limitservice.configure;
+
+public class Configuration {
+
+}

@@ -1,0 +1,5 @@
+package tk.microservices.limitservice.model;
+
+public class Limits {
+
+}
