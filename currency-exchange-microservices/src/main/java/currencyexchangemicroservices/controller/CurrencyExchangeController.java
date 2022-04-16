@@ -9,9 +9,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import currencyexchangemicroservices.bean.CurrencyExchange;
+import currencyexchangemicroservices.repository_interface.CurrencyExchangeRepository;
 
 @RestController
 public class CurrencyExchangeController {
+	@Autowired
+	private CurrencyExchangeRepository currencyexchangerepository;
 	
 	@Autowired
 	private Environment environment;
@@ -20,7 +23,12 @@ public class CurrencyExchangeController {
 	public CurrencyExchange retriveExchangeValue(
 			@PathVariable String from,
 			@PathVariable String to) {
-		CurrencyExchange currencyExchange= new CurrencyExchange(100L,"USD","INR",BigDecimal.valueOf(50));
+		//CurrencyExchange currencyExchange= new CurrencyExchange(100L,"USD","INR",BigDecimal.valueOf(50));
+		CurrencyExchange currencyExchange = currencyexchangerepository.findByFromAndTo(from, to);
+		
+		if(currencyExchange== null) {
+			throw new RuntimeException("unable to find data for "+from+" to "+to); 
+		}
 		String port = environment.getProperty("local.server.port");
 		currencyExchange.setEnvironment(port);
 		return currencyExchange;
